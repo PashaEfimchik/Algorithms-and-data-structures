@@ -1,0 +1,43 @@
+//    C++   (ML test 30)
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+
+    string str; int w = 1;
+    cin >> str;
+    vector<string> ss;    
+    for (int i = 0; i < str.size(); i++) {
+        for (int j = i + 1; j <= str.size(); j++) { ss.push_back(str.substr(i, j - i)); } }
+    sort(ss.begin(), ss.end());
+    for (int i = 1; i < ss.size(); i++) { if (ss[i] != ss[i - 1]) { w++; } }
+    cout << w; system("pause");
+    return 0;
+}
+
+#   PYTHON  (ML test 30)
+
+import gc
+from itertools import groupby
+str_ = input()[:-1]
+def tmp_(s):
+    tmp = []
+    for ln in range(1, len(s)):
+        for i in range(len(s)-ln+1):
+            tmp.append(s[i:i+ln])
+    tmp.append(s)
+    return groupby(sorted(tmp))
+def func_subs(s):
+    count = 1
+    for lst in tmp_(s):
+        counter = sum(1 for e in lst)
+        if counter > 1:
+            counter = 1
+        count += counter
+    return count - 1
+gc.collect()
+print(func_subs(str_))
